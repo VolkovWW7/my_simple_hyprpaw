@@ -1,0 +1,68 @@
+/* Общее окно */
+window {
+    margin: 0px;
+    border: 2px solid rgba(51, 204, 255, 0.9); /* Под цвет твоих активных бордеров */
+    border-radius: 12px;
+    background-color: #1e1e2e; /* Красивый темный фон (Catppuccin) */
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 14px;
+}
+
+/* Поле поиска */
+#input {
+margin: 15px;
+border: none;
+border-radius: 8px;
+background-color: #313244;
+color: #cdd6f4;
+padding: 10px;
+}
+
+#input:focus {
+box-shadow: 0 0 4px rgba(0, 255, 153, 0.9);
+}
+
+/* Контейнер со списком */
+#scroll {
+margin: 10px;
+}
+
+/* Сами плиточки (элементы приложений) */
+#entry {
+padding: 15px;
+border-radius: 10px;
+background-color: transparent;
+/* Выравниваем иконку и текст вертикально по центру плитки */
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+
+/* Эффект наведения и выбора плитки */
+#entry:selected {
+background-color: #313244;
+outline: none;
+}
+
+#entry:hover {
+background-color: rgba(51, 204, 255, 0.2);
+}
+
+/* Размер значков на плитках */
+#img {
+margin-bottom: 8px;
+width: 48px;
+height: 48px;
+}
+
+/* Текст под значком */
+#text {
+color: #cdd6f4;
+}
+
+#entry:selected #text {
+color: #00ff99; /* Цвет текста при выборе */
+font-weight: bold;
+}

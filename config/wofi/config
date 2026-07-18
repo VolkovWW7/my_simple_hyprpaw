@@ -1,0 +1,15 @@
+show=dmenu
+allow_images=true
+insensitive=false
+hide_scroll=false
+print_command=true
+width=600
+height=800
+# Отображать как grid (сетку)
+orientation=vertical
+# Количество колонок и строк на одном экране
+columns=1
+rows=10
+# Текст внутри плиточки под иконкой
+content=image
+

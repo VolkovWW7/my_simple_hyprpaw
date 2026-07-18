@@ -1,0 +1,37 @@
+    {
+        "label" : "lock",
+        "action" : "hyprlock",
+        "text" : "Заблокировать",
+        "keybind" : "l"
+    }
+    {
+        "label" : "hibernate",
+        "action" : "systemctl hibernate",
+        "text" : "Гибернация",
+        "keybind" : "h"
+    }
+    {
+        "label" : "logout",
+        "action" : "~/.config/hypr/scripts/logout.sh",
+        "text" : "Выход из сессии",
+        "keybind" : "e"
+    }
+    {
+        "label" : "shutdown",
+        "action" : "systemctl poweroff",
+        "text" : "Выключить ПК и пойти спать",
+        "keybind" : "s"
+    }
+    {
+        "label" : "suspend",
+        "action" : "hyprctl dispatch dpms off && systemctl suspend",
+        "text" : "Усыпить пк",
+        "keybind" : "u"
+    }
+    {
+        "label" : "reboot",
+        "action" : "systemctl reboot",
+        "text" : "Перезагрузить",
+        "keybind" : "r"
+    }
+
