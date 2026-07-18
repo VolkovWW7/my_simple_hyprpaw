@@ -1,4 +1,4 @@
-# hypr-dotfiles
+# my_simple_hyprpaw
 
 Мой конфиг Hyprland + Waybar + Wofi + Wlogout + Hyprlock + Hypridle.
 
@@ -35,8 +35,8 @@ hypr-dotfiles/
 ## Установка на новую машину
 
 ```bash
-git clone <URL-репозитория> ~/hypr-dotfiles
-cd ~/hypr-dotfiles
+git clone <URL-репозитория> ~/my_simple_hyprpaw
+cd ~/my_simple_hyprpaw
 ./install.sh
 ```
 
@@ -44,10 +44,13 @@ cd ~/hypr-dotfiles
 1. Ставит зависимости через `pacman` (Arch/EndeavourOS/Manjaro и т.п.). На других
    дистрибутивах спросит подтверждение и пропустит автоустановку — пакеты нужно
    поставить вручную (список пакетов — в начале `install.sh`).
-2. Бэкапит существующие `~/.config/{hypr,waybar,wofi,wlogout}` в
+2. Отдельно ставит `wlogout` из **AUR** (в официальных репозиториях Arch его нет) —
+   через `yay` или `paru`, если один из них установлен. Если AUR-хелпера нет,
+   выведет команды для установки вручную через `makepkg`.
+3. Бэкапит существующие `~/.config/{hypr,waybar,wofi,wlogout}` в
    `~/.config-backup-<дата>` и создаёт симлинки на конфиги из репозитория.
-3. Делает скрипты в `config/hypr/scripts/` исполняемыми.
-4. Ставит профиль шрифта JetBrains Mono для Konsole (если Konsole установлена).
+4. Делает скрипты в `config/hypr/scripts/` исполняемыми.
+5. Ставит профиль шрифта JetBrains Mono для Konsole (если Konsole установлена).
 
 ## Что унифицировано под разные машины
 

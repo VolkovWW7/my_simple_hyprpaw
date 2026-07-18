@@ -10,12 +10,15 @@ BACKUP_DIR="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
 
 PKGS_PACMAN=(
     hyprland hypridle hyprlock hyprpaper
-    waybar wofi wlogout
+    waybar wofi
     playerctl jq grim slurp wl-clipboard cliphist
     kitty dolphin kate spectacle konsole
     network-manager-applet blueman
     ttf-jetbrains-mono
 )
+
+# wlogout в официальных репозиториях Arch отсутствует, только в AUR
+PKGS_AUR=(wlogout)
 
 info()  { echo -e "\033[1;36m==>\033[0m $1"; }
 warn()  { echo -e "\033[1;33m!!\033[0m $1"; }
@@ -27,6 +30,7 @@ install_deps() {
     if command -v pacman &>/dev/null; then
         info "Обнаружен pacman — устанавливаю пакеты"
         sudo pacman -S --needed --noconfirm "${PKGS_PACMAN[@]}"
+        install_aur_deps
     elif command -v apt &>/dev/null; then
         warn "Обнаружен apt. Список пакетов рассчитан на Arch — названия пакетов могут"
         warn "отличаться (hyprland/hypridle/hyprlock/hyprpaper в Debian/Ubuntu обычно"
@@ -34,9 +38,30 @@ install_deps() {
         read -rp "Продолжить установку без автоустановки зависимостей? [y/N] " ans
         [[ "$ans" =~ ^[Yy]$ ]] || exit 1
     else
-        warn "Пакетный менеджер не распознан. Установите вручную: ${PKGS_PACMAN[*]}"
+        warn "Пакетный менеджер не распознан. Установите вручную: ${PKGS_PACMAN[*]} ${PKGS_AUR[*]}"
         read -rp "Продолжить без автоустановки зависимостей? [y/N] " ans
         [[ "$ans" =~ ^[Yy]$ ]] || exit 1
+    fi
+}
+
+# wlogout официально в pacman не входит — ставим через AUR-хелпер, если он есть
+install_aur_deps() {
+    local helper=""
+    if command -v yay &>/dev/null; then
+        helper="yay"
+    elif command -v paru &>/dev/null; then
+        helper="paru"
+    elif command -v aura &>/dev/null; then
+        helper="aura"
+    fi
+
+    if [ -n "$helper" ]; then
+        info "Обнаружен $helper — ставлю из AUR: ${PKGS_AUR[*]}"
+        "$helper" -A --needed --noconfirm "${PKGS_AUR[@]}"
+    else
+        warn "AUR-хелпер (yay/paru/aura) не найден. wlogout нужно поставить вручную:"
+        warn "  git clone https://aur.archlinux.org/wlogout.git && cd wlogout && makepkg -si"
+        warn "или установите yay/paru/aura и перезапустите install.sh"
     fi
 }
 
