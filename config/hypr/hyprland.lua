@@ -28,6 +28,7 @@ hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("XCURSOR_THEME", "Breeze")
 hl.env("XCURSOR_SIZE", 24)
+hl.env("XDG_MENU_PREFIX", "arch-")
 
 hl.config({
     cursor = {
