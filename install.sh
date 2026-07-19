@@ -60,25 +60,27 @@ install_deps() {
 
 # wlogout официально в pacman не входит — ставим через AUR-хелпер, если он есть
 install_aur_deps() {
-    local helper="" flag="-S"
+    local helper="" flag="-S" extra_opts="--needed --noconfirm"
     if command -v yay &>/dev/null; then
         helper="yay"
     elif command -v paru &>/dev/null; then
         helper="paru"
     elif command -v aura &>/dev/null; then
         helper="aura"
-        flag="-A"   # у aura именно этот флаг ставит пакеты из AUR, -S не подойдёт
+        flag="-A"           # у aura именно этот флаг ставит пакеты из AUR, -S не подойдёт
+        extra_opts="--noconfirm"   # aura не поддерживает --needed, только --noconfirm
     fi
-
+ 
     if [ -n "$helper" ]; then
         info "Обнаружен $helper — ставлю из AUR: ${PKGS_AUR[*]}"
-        "$helper" "$flag" --needed --noconfirm "${PKGS_AUR[@]}"
+        "$helper" "$flag" $extra_opts "${PKGS_AUR[@]}"
     else
         warn "AUR-хелпер (yay/paru/aura) не найден. wlogout нужно поставить вручную:"
         warn "  git clone https://aur.archlinux.org/wlogout.git && cd wlogout && makepkg -si"
         warn "или установите yay/paru/aura и перезапустите install.sh"
     fi
 }
+
 
 # -------------------------------------------------------------------------
 # 2. Копирование конфигов (с бэкапом того, что уже есть)
