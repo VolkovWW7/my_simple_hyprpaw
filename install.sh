@@ -22,7 +22,7 @@ PKGS_PACMAN=(
     # Громкость (wpctl на хоткеях) и звук (pavucontrol по клику в waybar)
     wireplumber pavucontrol
     # Аутентификация и Wayland-порталы — без них часть автозапуска в hyprland.lua не отработает
-    polkit-kde-agent kinit xdg-desktop-portal xdg-desktop-portal-hyprland
+    polkit-kde-agent xdg-desktop-portal xdg-desktop-portal-hyprland
     # Шрифт для waybar/wofi/hyprlock/konsole
     ttf-jetbrains-mono
 )
