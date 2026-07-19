@@ -150,7 +150,12 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 
 hl.window_rule({ match = { class = "^(pavucontrol)$" }, float = true })
 hl.window_rule({ match = { class = "^(nm-connection-editor)$" }, float = true })
-hl.window_rule({ match = { title = "^(Spectacle)$" }, float = true })
+-- Центрируем ЛЮБОЕ плавающее окно при открытии: диалоги выбора файла, всплывающие
+-- окна Steam, Dolphin в плавающем режиме и т.п. Работает по признаку "floating",
+-- а не по конкретному классу, поэтому покрывает и правила выше, и вообще все
+-- сторонние floating-окна, которые сами так решили открыться.
+hl.window_rule({ match = { floating = true }, center = true })
+
 
 -- =========================================================================
 -- 6. АВТОЗАПУСК
