@@ -25,6 +25,8 @@ PKGS_PACMAN=(
     polkit-kde-agent xdg-desktop-portal xdg-desktop-portal-hyprland
     # Шрифт для waybar/wofi/hyprlock/konsole
     ttf-jetbrains-mono
+    #Яркость экрана ноутбука
+    brightnessctl
 )
 
 # wlogout в официальных репозиториях Arch отсутствует, только в AUR

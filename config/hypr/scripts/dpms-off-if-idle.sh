@@ -9,4 +9,3 @@ while playerctl status 2>/dev/null | grep -q "Playing"; do
 done
 
 hyprctl dispatch dpms off
-
