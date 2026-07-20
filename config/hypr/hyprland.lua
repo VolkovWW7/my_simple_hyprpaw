@@ -3,22 +3,48 @@
 -- =========================================================================
 
 hl.monitor({
-    output   = "HDMI-A-1",
-    mode     = "1920x1080@60",
-    position = "0x0",
+    output   = "",
+    mode     = "preferred",
+    position = "auto",
     scale    = 1,
 })
 
-hl.monitor({
-    output   = "DP-3",
-    mode     = "1920x1080@170",
-    position = "1920x0",
-    scale    = 1,
-})
+--для определения доступных мониторов и режима работы введите в коммандной строке
+--                     hyprctl monitors
+--hl.monitor({
+--    output   = "DP-3",
+--    mode     = "1920x1080@170",
+--    position = "1920x0", --устангавливает монитор справо от основного
+--    scale    = 1,
+--})
 
-hl.env("LIBVA_DRIVER_NAME", "nvidia")
-hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
-hl.env("NVD_BACKEND", "direct")
+-- Автоопределение видеокарты по PCI vendor ID из /sys/class/drm — без внешних
+-- утилит вроде lspci и без запуска процессов, работает на любой машине "из коробки".
+local function detect_gpu_vendor()
+    local vendor_ids = {
+        ["0x10de"] = "nvidia",
+        ["0x1002"] = "amd",
+        ["0x8086"] = "intel",
+    }
+    for i = 0, 9 do
+        local f = io.open("/sys/class/drm/card" .. i .. "/device/vendor", "r")
+        if f then
+            local id = f:read("*l")
+            f:close()
+            if id and vendor_ids[id] then
+                return vendor_ids[id]
+            end
+        end
+    end
+    return "unknown"
+end
+ 
+local gpu = detect_gpu_vendor()
+-- Если на конкретной машине автоопределение ошиблось (например, гибридная
+-- Intel+NVIDIA-графика и подхватилась не та карта) — можно задать вручную:
+-- local gpu = "nvidia"
+ 
+
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
@@ -150,12 +176,10 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 
 hl.window_rule({ match = { class = "^(pavucontrol)$" }, float = true })
 hl.window_rule({ match = { class = "^(nm-connection-editor)$" }, float = true })
--- Центрируем ЛЮБОЕ плавающее окно при открытии: диалоги выбора файла, всплывающие
--- окна Steam, Dolphin в плавающем режиме и т.п. Работает по признаку "floating",
--- а не по конкретному классу, поэтому покрывает и правила выше, и вообще все
--- сторонние floating-окна, которые сами так решили открыться.
-hl.window_rule({ match = { floating = true }, center = true })
 
+-- Центрируем ЛЮБОЕ плавающее окно при открытии: диалоги выбора файла, всплывающие
+-- окна Steam, Dolphin в плавающем режиме и т.п. 
+hl.window_rule({ match = { class = ".*" }, center = true })
 
 -- =========================================================================
 -- 6. АВТОЗАПУСК
