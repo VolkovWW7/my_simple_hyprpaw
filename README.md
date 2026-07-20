@@ -1,5 +1,4 @@
 # my_simple_hyprpaw
-# my_simple_hyprpaw
 ![my littlehyprpaw](screenshots/image.png)
 Простой, но не голый дотфайл-конфиг для Hyprland на Arch Linux: тайловый WM
 + панель + лаунчер + экран блокировки + меню выхода, с автоустановкой всех
