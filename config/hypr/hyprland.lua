@@ -128,7 +128,7 @@ local mainMod = "SUPER"
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exit(), { description = "Выйти из Hyprland" })
 hl.bind("CTRL + ALT" .. " + " .. "T", hl.dsp.exec_cmd("konsole"), { description = "Открыть терминал" })
 hl.bind(mainMod .. " + " .. "E", hl.dsp.exec_cmd("dolphin"), { description = "Открыть Dolphin" })
-hl.bind("ALT" .. " + " .. "F4", { description = "Закрыть окно" })
+hl.bind("ALT" .. " + " .. "F4",hl.dsp.window.close(), { description = "Закрыть окно" })
 hl.bind(mainMod .. "+" .. "Q", hl.dsp.window.close(), { description = "Закрыть окно" })
 hl.bind(mainMod .. " + " .. "Space", hl.dsp.window.float({ action = "toggle" }), { description = "Плавающее окно" })
 hl.bind(mainMod .. " + " .. "D", hl.dsp.exec_cmd("wofi --show drun"), { description = "Лаунчер приложений" })
@@ -202,3 +202,28 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("steam -silent")
     hl.exec_cmd("hiddify")
 end)
+
+-- =========================================================================
+-- 7. ЖЕСТЫ ТАЧПАДА
+-- =========================================================================
+
+-- Свайп 3 пальцами ВЛЕВО / ВПРАВО -> Переключение между рабочими столами
+hl.gesture({
+    fingers = 3,
+    direction = "horizontal",
+    action = "workspace"
+})
+
+-- Свайп 3 пальцами ВВЕРХ -> Переключение фокуса на окно выше / Разворачивание
+hl.gesture({
+    fingers = 3,
+    direction = "up",
+    action = "fullscreen"
+})
+
+-- Свайп 3 пальцами ВНИЗ -> Закрыть текущее окно
+hl.gesture({
+    fingers = 3,
+    direction = "down",
+    action = "close"
+})
