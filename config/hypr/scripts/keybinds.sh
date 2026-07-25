@@ -13,5 +13,5 @@ hyprctl binds -j | jq -r '
     (if (($m / 1  | floor) % 2 == 1) then "SHIFT+" else "" end)
   ) as $mods |
   "\($mods)\(.key)  →  \(.description)"
-' | wofi --dmenu --prompt "Горячие клавиши" --width 700 --height 500
+' | wofi --show dmenu --prompt "Горячие клавиши" --width 700 --height 500
 
