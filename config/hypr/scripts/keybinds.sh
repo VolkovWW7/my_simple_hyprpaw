@@ -1,17 +1,33 @@
 #!/bin/bash
-# Показывает хоткеи (комбинация + описание) через wofi.
-# Требует, чтобы бинды в hyprland.lua имели { description = "..." }
+# Показывает хоткеи через wofi.
+#
+# ВАЖНО: раньше список строился динамически из `hyprctl binds -j`, но
+# начиная с перехода Hyprland на Lua-конфиг (0.55+) команда отдаёт для
+# Lua-биндов (dispatcher: "__lua") структурно битый JSON — поля описания
+# оказываются не в тех местах и без кавычек, jq падает на самом базовом
+# фильтре. Это баг сериализации в самом Hyprland, а не в этом проекте,
+# поэтому список хоткеев здесь статичный — держите его в актуальном
+# состоянии вручную при добавлении/удалении биндов в hyprland.lua
+# (совпадает с таблицами хоткеев в README.md).
 
-hyprctl binds -j | jq -r '
-  .[] |
-  select(.description != null and .description != "") |
-  (.modmask) as $m |
-  (
-    (if (($m / 64 | floor) % 2 == 1) then "SUPER+" else "" end) +
-    (if (($m / 8  | floor) % 2 == 1) then "ALT+"   else "" end) +
-    (if (($m / 4  | floor) % 2 == 1) then "CTRL+"  else "" end) +
-    (if (($m / 1  | floor) % 2 == 1) then "SHIFT+" else "" end)
-  ) as $mods |
-  "\($mods)\(.key)  →  \(.description)"
-' | wofi --show dmenu --prompt "Горячие клавиши" --width 700 --height 500
+hotkeys="SUPER + SHIFT + M  →  Выйти из Hyprland
+CTRL + ALT + T  →  Открыть терминал
+SUPER + E  →  Открыть Dolphin
+ALT + F4  →  Закрыть окно
+SUPER + Q  →  Закрыть окно тоже
+SUPER + Space  →  Плавающее окно
+SUPER + D  →  Лаунчер приложений
+SUPER + C  →  Открыть Kate
+SHIFT + Print  →  Скриншот всего экрана
+Print  →  Скриншот области в буфер
+SUPER + B  →  Открыть браузер
+SUPER + ←/→/↑/↓  →  Фокус на соседнее окно
+SUPER + 1..4  →  Переключиться на рабочий стол
+SUPER + SHIFT + 1..4  →  Перенести окно на рабочий стол
+SUPER + SHIFT + ←/→/↑/↓  →  Перенести окно на монитор в этом направлении
+SUPER + Escape  →  Меню выхода
+SUPER + /  →  Эта шпаргалка
+SUPER + N  →  Закрыть последнее уведомление
+SUPER + SHIFT + N  →  Закрыть все уведомления"
 
+echo "$hotkeys" | wofi --show dmenu --prompt "Горячие клавиши" --width 700 --height 500

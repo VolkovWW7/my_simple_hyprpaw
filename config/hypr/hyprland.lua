@@ -210,11 +210,13 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("kdeinit6")
     hl.exec_cmd("waybar")
     hl.exec_cmd("hyprpaper")
+    hl.exec_cmd("mako")
     hl.exec_cmd("nm-applet --indicator")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
     hl.exec_cmd("wl-paste --type image --watch cliphist store")
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("hypridle")
+    hl.exec_cmd("/usr/lib/pam_kwallet_init")  -- передаёт пароль от PAM в kwalletd6 при входе, чтобы кошелёк не спрашивал пароль повторно
     hl.exec_cmd("telegram-desktop -startintray")
     hl.exec_cmd("systemctl --user start xdg-desktop-portal xdg-desktop-portal-hyprland")
     hl.exec_cmd("blueman-applet")
@@ -246,5 +248,5 @@ hl.gesture({
 hl.gesture({
     fingers = 3,
     direction = "down",
-    action = "close"
+    action = "float"
 })
