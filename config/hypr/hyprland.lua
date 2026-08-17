@@ -197,9 +197,8 @@ hl.bind("XF86ScreenSaver", hl.dsp.exec_cmd("hyprlock"), { locked = true })
 hl.window_rule({ match = { class = "^(pavucontrol)$" }, float = true })
 hl.window_rule({ match = { class = "^(nm-connection-editor)$" }, float = true })
 
--- Центрируем ЛЮБОЕ плавающее окно при открытии: диалоги выбора файла, всплывающие
--- окна Steam, Dolphin в плавающем режиме и т.п. 
-hl.window_rule({ match = { class = ".*" }, center = true })
+-- Центрируем плавающее окно при открытии: 
+hl.window_rule({ match = { class = ".*" }, move = onscreen })
 
 -- =========================================================================
 -- 6. АВТОЗАПУСК
@@ -218,13 +217,13 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
     hl.exec_cmd("hypridle")
     hl.exec_cmd("/usr/lib/pam_kwallet_init")  -- передаёт пароль от PAM в kwalletd6 при входе, чтобы кошелёк не спрашивал пароль повторно
-    hl.exec_cmd("telegram-desktop -startintray")
     hl.exec_cmd("systemctl --user start xdg-desktop-portal xdg-desktop-portal-hyprland")
     hl.exec_cmd("blueman-applet")
+--сюда можно добавить автозапуск приложения    
     hl.exec_cmd("steam -silent")
+    hl.exec_cmd("telegram-desktop -startintray")
     hl.exec_cmd("hiddify")
 
---сюда можно добавить автозапуск приложения
 end)
 
 -- =========================================================================
