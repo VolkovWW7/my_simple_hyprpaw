@@ -60,7 +60,7 @@ hl.config({
     cursor = {
         no_hardware_cursors = true,
     },
-})
+}) 
 
 hl.config({
     xwayland = {
@@ -210,6 +210,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("kdeinit6")
     hl.exec_cmd("waybar")
     hl.exec_cmd("hyprpaper")
+    hl.exec_cmd("~/.config/hypr/scripts/generate_hyprpaper_config.sh")
     hl.exec_cmd("mako")
     hl.exec_cmd("nm-applet --indicator")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
