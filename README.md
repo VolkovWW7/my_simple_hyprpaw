@@ -75,7 +75,7 @@
 ## Установка на новую машину
 
 ```bash
-git clone /my_simple_hyprpaw
+git clone https://github.com/VolkovWW7/my_simple_hyprpaw
 cd ~/my_simple_hyprpaw
 ./install.sh
 ```
