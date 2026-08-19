@@ -3,7 +3,7 @@
 # --- Настройки ---
 WALLPAPER_DIR="$HOME/.config/hypr/wallpapers"
 CONFIG_FILE="$HOME/.config/hypr/hyprpaper.conf"
-FIT_MODE="fill" # Можно изменить на cover, contain, tile
+FIT_MODE="contain" # Можно изменить на cover, contain, tile
 
 # --- Функция: получить случайное изображение из папки ---
 get_random_wallpaper() {
@@ -62,3 +62,4 @@ fit_mode = $FIT_MODE
 }" >> "$CONFIG_FILE"
 
 echo "✅ Конфиг hyprpaper успешно обновлен: $CONFIG_FILE"
+hyprpaper
