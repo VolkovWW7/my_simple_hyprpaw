@@ -10,7 +10,7 @@ BACKUP_DIR="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
 
 PKGS_PACMAN=(
     # Ядро Hyprland-окружения
-    hyprland hypridle hyprlock hyprpaper waybar wofi
+    hyprland hypridle hyprlock hyprpaper waybar wofi mako
     # Используются в скриптах scripts/*.sh и keybinds.sh
     playerctl jq
     # Скриншоты (grim+slurp) и буфер обмена

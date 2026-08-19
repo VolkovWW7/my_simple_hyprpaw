@@ -1,0 +1,33 @@
+# Глобальные настройки
+max-visible=5
+sort=-time
+layer=top
+
+# Внешний вид
+font=jetbrains-mono 11
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-size=2
+border-color=#89b4fa
+border-radius=8
+progress-color=source #89b4fa
+
+# Геометрия
+width=350
+height=150
+margin=20
+padding=15
+anchor=top-right
+
+# Поведение
+default-timeout=5000
+ignore-timeout=0
+
+# Кастомные правила
+[urgency=high]
+border-color=#f38ba8
+default-timeout=0
+
+[category=email]
+border-color=#a6e3a1
+default-timeout=10000

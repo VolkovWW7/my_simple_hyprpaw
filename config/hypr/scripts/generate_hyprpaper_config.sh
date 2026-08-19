@@ -42,7 +42,11 @@ echo "" >> "$CONFIG_FILE"
 for monitor in "${MONITORS[@]}"; do
     wallpaper_path=$(get_random_wallpaper)
     echo "preload = $wallpaper_path" >> "$CONFIG_FILE"
-    echo "wallpaper { monitor = $monitor path = $wallpaper_path fit_mode = $FIT_MODE }" >> "$CONFIG_FILE"
+    echo "wallpaper { 
+    monitor = $monitor 
+    path = $wallpaper_path 
+    fit_mode = $FIT_MODE 
+    }" >> "$CONFIG_FILE"
     echo "" >> "$CONFIG_FILE"
 done
 
@@ -51,6 +55,10 @@ done
 fallback_wallpaper=$(get_random_wallpaper)
 echo "# Fallback правило на случай, если какой-то монитор пропущен" >> "$CONFIG_FILE"
 echo "preload = $fallback_wallpaper" >> "$CONFIG_FILE"
-echo "wallpaper { monitor = path = $fallback_wallpaper fit_mode = $FIT_MODE }" >> "$CONFIG_FILE"
+echo "wallpaper { 
+monitor = 
+path = $fallback_wallpaper 
+fit_mode = $FIT_MODE 
+}" >> "$CONFIG_FILE"
 
 echo "✅ Конфиг hyprpaper успешно обновлен: $CONFIG_FILE"
