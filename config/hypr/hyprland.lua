@@ -187,18 +187,21 @@ hl.bind("XF86ScreenSaver", hl.dsp.exec_cmd("hyprlock"), { locked = true })
 -- Переключатель "внешний монитор" (обычно иконка монитора на Fn-ряду, часто это
 -- XF86Display). Раскомментируйте и подставьте нужное действие, когда проверите
 -- реальный keysym через `wev` — сама клавиша не гарантированно называется именно так:
--- hl.bind("XF86Display", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-external-monitor.sh"), { locked = true })
+hl.bind("XF86Display", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-external-monitor.sh"), { locked = true })
 
 
 -- =========================================================================
 -- 5. ПРАВИЛА ОКОН
 -- =========================================================================
 
-hl.window_rule({ match = { class = "^(pavucontrol)$" }, float = true })
-hl.window_rule({ match = { class = "^(nm-connection-editor)$" }, float = true })
+hl.window_rule({ match = { class = "org.pulseaudio.pavucontrol" }, float = true })
+hl.window_rule({ match = { class = "nm-connection-editor" }, float = true })
+hl.window_rule({ match = { class = "^blueman-.*$" }, float = true })
+hl.window_rule({
+    match = ".*",
+    move= "onscreen cursor 50% 50%"
+})
 
--- Центрируем плавающее окно при открытии: 
-hl.window_rule({ match = { class = ".*" }, move = onscreen })
 
 -- =========================================================================
 -- 6. АВТОЗАПУСК
@@ -220,9 +223,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start xdg-desktop-portal xdg-desktop-portal-hyprland")
     hl.exec_cmd("blueman-applet")
 --сюда можно добавить автозапуск приложения    
-    hl.exec_cmd("steam -silent")
-    hl.exec_cmd("telegram-desktop -startintray")
-    hl.exec_cmd("hiddify")
+--hl.exec_cmd("steam -silent")
+--hl.exec_cmd("telegram-desktop -startintray")
+--hl.exec_cmd("hiddify")
 
 end)
 
